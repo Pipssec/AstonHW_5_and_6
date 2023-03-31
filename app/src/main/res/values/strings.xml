@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AstonHW_5</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="firstname">FirstName</string>
+    <string name="lastname">LastName</string>
+    <string name="PhoneNmber">375290000000</string>
+</resources>
