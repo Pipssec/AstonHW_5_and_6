@@ -5,4 +5,9 @@
     <string name="firstname">FirstName</string>
     <string name="lastname">LastName</string>
     <string name="PhoneNmber">375290000000</string>
+    <string name="editText">Редактировать</string>
+    <string name="inputName">Input Name</string>
+    <string name="inputLastName">Input Last Name</string>
+    <string name="inputNumber">Input Number</string>
+    <string name="save">Сохранить</string>
 </resources>

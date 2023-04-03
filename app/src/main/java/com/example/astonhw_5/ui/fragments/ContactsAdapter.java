@@ -57,6 +57,8 @@ public class ContactsAdapter  extends RecyclerView.Adapter<ContactsAdapter.ViewH
         return contacts.size();
     }
 
+
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView nameFirstView, nameLastView, numberView;
         ViewHolder(View view){
