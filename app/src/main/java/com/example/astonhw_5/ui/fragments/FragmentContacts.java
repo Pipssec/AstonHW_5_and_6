@@ -17,9 +17,13 @@ import com.example.astonhw_5.model.ContactPhone;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.example.astonhw_5.ui.fragments.ContactsAdapter;
 
 public class FragmentContacts extends Fragment {
     Map<String, ContactPhone> mContacts = new HashMap<>();
@@ -27,11 +31,7 @@ public class FragmentContacts extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContacts.put("1", new ContactPhone("375291111111", "Человек", "Паук", "1"));
-        mContacts.put("2", new ContactPhone("375291111112", "Робот", "Коп", "2"));
-        mContacts.put("3", new ContactPhone("375291111113", "Человек", "Железный", "3"));
-        mContacts.put("4", new ContactPhone("375291111114", "Пятый", "Элемент", "4"));
-        mContacts.put("5", new ContactPhone("375291111115", "Омерзительная", "Восьмерка", "5"));
+        createListContact();
         getParentFragmentManager().setFragmentResultListener("requestKey", this, (key, bundle) -> {
             ArrayList<String> result = bundle.getStringArrayList("bundleKey");
             String id = result.get(3);
@@ -66,22 +66,38 @@ public class FragmentContacts extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         List<ContactPhone> listCont = new ArrayList<>(mContacts.values());
+        Collections.sort(listCont);
         loadAdapter(view, listCont);
 
     }
 
-    private void loadAdapter(View view, List<ContactPhone> contacts) {
+    private void loadAdapter(View view, List<ContactPhone> listCont) {
         RecyclerView recyclerView = view.findViewById(R.id.list);
         ContactsAdapter.OnContactClickListener onContactClickListener = (contact, position) -> {
             FragmentItem contactFragment = FragmentItem.newInstance(contact.getNumber(),
-                    contact.getFirstName(), contact.getLastName(), contact.getId().toString());
+                    contact.getFirstName(),
+                    contact.getLastName(),
+                    contact.getId(),
+                    contact.getPhoto());
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, contactFragment)
                     .addToBackStack("contacts")
                     .commit();
         };
-        ContactsAdapter adapter = new ContactsAdapter(requireActivity(), contacts, onContactClickListener);
+        ContactsAdapter adapter = new ContactsAdapter(listCont, onContactClickListener);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void createListContact() {
+        for (int i = 1, j = 120; i < j; i++) {
+            mContacts.put(String.valueOf(i),
+                    new ContactPhone("37529111111" + i,
+                            "User" + i,
+                            "Name" + i,
+                            String.valueOf(i),
+                            "https://picsum.photos/id/" + i + "/200/300"));
+
+        }
     }
 }

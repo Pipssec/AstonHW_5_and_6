@@ -1,17 +1,24 @@
 package com.example.astonhw_5.model;
 
 
-public class ContactPhone {
+public class ContactPhone implements Comparable<ContactPhone> {
     private String number;
     private String firstName;
     private String lastName;
     private String id;
+    private String photo;
 
-    public ContactPhone(String number, String firstName, String lastName, String id) {
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public ContactPhone(String number, String firstName, String lastName, String id, String photo ) {
         this.number = number;
         this.firstName = firstName;
         this.lastName = lastName;
         this.id = id;
+        this.photo = photo;
     }
 
     public String getNumber() {
@@ -44,5 +51,10 @@ public class ContactPhone {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public int compareTo(ContactPhone o) {
+        return Integer.parseInt(this.id) - Integer.parseInt(o.id);
     }
 }
